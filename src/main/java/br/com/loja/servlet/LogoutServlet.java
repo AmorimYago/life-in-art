@@ -1,4 +1,4 @@
-package br.com.biblioteca.servlet;
+package br.com.loja.servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

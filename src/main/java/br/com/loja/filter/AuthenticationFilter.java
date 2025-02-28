@@ -1,4 +1,4 @@
-package br.com.biblioteca.filter;
+package br.com.loja.filter;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;

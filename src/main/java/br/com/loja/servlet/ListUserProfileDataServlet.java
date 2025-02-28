@@ -1,9 +1,9 @@
-package br.com.biblioteca.servlet;
+package br.com.loja.servlet;
 
 
-import br.com.biblioteca.dao.UsuariosDao;
+import br.com.loja.dao.UsuariosDao;
 
-import br.com.biblioteca.model.Usuarios;
+import br.com.loja.model.Usuarios;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,9 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @WebServlet({"/profile"})
 public class ListUserProfileDataServlet extends HttpServlet {

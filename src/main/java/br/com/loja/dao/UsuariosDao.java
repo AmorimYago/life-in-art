@@ -1,7 +1,7 @@
-package br.com.biblioteca.dao;
+package br.com.loja.dao;
 
-import br.com.biblioteca.config.ConnectionpoolConfig;
-import br.com.biblioteca.model.Usuarios;
+import br.com.loja.config.ConnectionpoolConfig;
+import br.com.loja.model.Usuarios;
 
 import java.sql.*;
 import java.util.ArrayList;

@@ -1,9 +1,9 @@
-package br.com.biblioteca.servlet;// Define o pacote onde esta classe está localizada.
+package br.com.loja.servlet;// Define o pacote onde esta classe está localizada.
 
 // Importa as bibliotecas necessárias para trabalhar com Servlets, exceções e operações de I/O.
 
-import br.com.biblioteca.dao.UsuariosDao;
-import br.com.biblioteca.model.Usuarios;
+import br.com.loja.dao.UsuariosDao;
+import br.com.loja.model.Usuarios;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

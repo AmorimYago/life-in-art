@@ -1,6 +1,6 @@
-package br.com.biblioteca.servlet;
+package br.com.loja.servlet;
 
-import br.com.biblioteca.dao.UsuariosDao;
+import br.com.loja.dao.UsuariosDao;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

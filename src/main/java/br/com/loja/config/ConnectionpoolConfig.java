@@ -1,4 +1,4 @@
-package br.com.biblioteca.config;
+package br.com.loja.config;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 

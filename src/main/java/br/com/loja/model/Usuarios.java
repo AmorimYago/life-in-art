@@ -1,4 +1,4 @@
-package br.com.biblioteca.model;
+package br.com.loja.model;
 
 public class Usuarios {
 
