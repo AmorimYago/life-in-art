@@ -1,0 +1,11 @@
+br\com\biblioteca\servlet\ListUserProfileDataServlet.class
+br\com\biblioteca\servlet\LogoutServlet.class
+br\com\biblioteca\config\ConnectionpoolConfig.class
+br\com\biblioteca\servlet\CreateusuariosServlet.class
+br\com\biblioteca\servlet\LoginServlet.class
+br\com\biblioteca\model\Usuarios.class
+br\com\biblioteca\servlet\ListUsersServlet.class
+br\com\biblioteca\dao\UsuariosDao.class
+br\com\biblioteca\servlet\DeleteUserServlet.class
+br\com\biblioteca\filter\AuthenticationFilter.class
+br\com\biblioteca\servlet\UpdateUserServlet.class
