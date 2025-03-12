@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Table - Life in Art</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora&amp;display=swap">
+    <link rel="stylesheet" href="/assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="/assets/css/bs-theme-overrides.css">
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <nav class="navbar bg-primary bg-gradient align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0 navbar-dark">
+            <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+                    <div class="sidebar-brand-icon rotate-n-15"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -32 576 576" width="1em" height="1em" fill="currentColor" style="font-size: 20px;">
+                            <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. -->
+                            <path d="M339.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L568.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S517.7-4.4 499.1 9.6L262.4 187.2c-24 18-38.2 46.1-38.4 76.1L339.3 367.1zm-19.6 25.4l-116-104.4C143.9 290.3 96 339.6 96 400c0 3.9 .2 7.8 .6 11.6C98.4 429.1 86.4 448 68.8 448H64c-17.7 0-32 14.3-32 32s14.3 32 32 32H208c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"></path>
+                        </svg></div>
+                    <div class="sidebar-brand-text mx-3"><span>Life in Art</span></div>
+                </a>
+                <hr class="sidebar-divider my-0">
+                <ul class="navbar-nav text-light" id="accordionSidebar">
+                    <li class="nav-item"><a class="nav-link active" href="usuarios.html"><i class="far fa-user"></i><span>Usuários</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="produtos.html"><i class="fas fa-box"></i><span>Produtos</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="pedidos.html"><i class="fas fa-table"></i><span>Pedidos</span></a></li>
+                    <li class="nav-item"></li>
+                    <li class="nav-item"></li>
+                </ul>
+                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+            </div>
+        </nav>
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <nav class="navbar navbar-expand bg-white shadow mb-4 topbar">
+                    <div class="container-fluid">
+                        <ul class="navbar-nav flex-nowrap ms-auto">
+                            <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><i class="fas fa-search"></i></a>
+                                <div class="dropdown-menu dropdown-menu-end p-3 animated--grow-in" aria-labelledby="searchDropdown">
+                                    <form class="me-auto navbar-search w-100">
+                                        <div class="input-group"><input class="bg-light border-0 form-control small" type="text" placeholder="Search for ..."><button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button></div>
+                                    </form>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown no-arrow">
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">Usuario logado</span></a>
+                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="#"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Perfil</a><a class="dropdown-item" href="#"><i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Configurações</a>
+                                        <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <div class="container-fluid">
+                    <h3 class="text-dark mb-4">Usuários</h3>
+                    <div class="card shadow">
+                        <div class="card-header py-3">
+                            <p class="text-primary m-0 fw-bold">Informações de usuários</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 text-nowrap">
+                                    <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"></div><button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#modal-cadastrar-user">Cadastrar novo usuário</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="text-md-end dataTables_filter" id="dataTable_filter"><label class="form-label"><input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search"></label></div>
+                                </div>
+                            </div>
+                            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                                <table class="table my-0" id="dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th>Email</th>
+                                            <th style="width: 150px;">Status</th>
+                                            <th style="width: 150px;">Alterar</th>
+                                            <th style="width: 150px;">Hab/des</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><a href="#">Alterar</a></td>
+                                            <td><a href="#">Hab/des</a></td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td><strong>Name</strong></td>
+                                            <td><strong>Email</strong></td>
+                                            <td><strong>Status</strong></td>
+                                            <td><strong>Alterar</strong></td>
+                                            <td><strong>Hab/des</strong></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 align-self-center">
+                                    <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite"></p>
+                                </div>
+                                <div class="col-md-6">
+                                    <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
+                                        <ul class="pagination">
+                                            <li class="page-item disabled"><a class="page-link" aria-label="Previous" href="#"><span aria-hidden="true">«</span></a></li>
+                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item"><a class="page-link" aria-label="Next" href="#"><span aria-hidden="true">»</span></a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright"><span>Copyright © Life in Art 2025</span></div>
+                </div>
+            </footer>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+    <div class="modal fade modal-xl" role="dialog" tabindex="-1" id="modal-cadastrar-user">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Dados do usuário</h4><button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id = "form-cadastrar-user">
+                        <div class="pb-0 mb-1"><label class="form-label" for="nome-user">Nome</label><input class="form-control" type="text" id="nome-user" required></div>
+                        <div class="mb-1"><label class="form-label" for="email-user">Email</label><input class="form-control" type="email" id="email-user" required></div>
+                        <div class="mb-1">
+                            <div class="row">
+                                <div class="col"><label class="form-label" for="cpf-user">CPF (apenas números)</label><input class="form-control" type="text" id="cpf-user" required></div>
+                                <div class="col"><label class="form-label" for="grupo-user">Grupo</label><select class="form-select" id="grupo-user">
+                                        <option value="1">ADM</option>
+                                        <option value="2">Estoquista</option>
+                                    </select></div>
+                            </div>
+                        </div>
+                        <div class="mb-1"><label class="form-label" for="senha-user">Senha</label><input class="form-control" type="password" id="senha-user" required></div>
+                        <div><label class="form-label" for="repetir-senha-user">Repita a senha</label><input class="form-control" type="password" id="repetir-senha-user" required></div>
+                    </form>
+                </div>
+                <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Fechar</button><button class="btn btn-primary" type="submit" form="form-cadastrar-user">Salvar</button></div>
+            </div>
+        </div>
+    </div>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="assets/js/theme.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const cpfInput = document.getElementById("cpf-user");
+
+            cpfInput.addEventListener("input", function () {
+                formatarCPF(this);
+            });
+
+            function formatarCPF(input) {
+                let cpf = input.value.replace(/\D/g, ""); // Remove não numéricos
+                if (cpf.length > 11) cpf = cpf.slice(0, 11); // Limita a 11 números
+
+                // Aplica formatação
+                if (cpf.length > 9) {
+                    input.value = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+                } else if (cpf.length > 6) {
+                    input.value = cpf.replace(/(\d{3})(\d{3})(\d{0,3})/, "$1.$2.$3");
+                } else if (cpf.length > 3) {
+                    input.value = cpf.replace(/(\d{3})(\d{0,3})/, "$1.$2");
+                } else {
+                    input.value = cpf;
+                }
+
+                validarCPF(cpf);
+            }
+
+            function validarCPF(cpf) {
+                let formGroup = cpfInput.closest(".col");
+                let errorMessage = document.getElementById("cpf-error");
+
+                if (!errorMessage) {
+                    errorMessage = document.createElement("div");
+                    errorMessage.id = "cpf-error";
+                    errorMessage.classList.add("invalid-feedback");
+                    formGroup.appendChild(errorMessage);
+                }
+
+                if (cpf.length !== 11) {
+                    errorMessage.textContent = "CPF deve ter 11 dígitos.";
+                    cpfInput.classList.add("is-invalid");
+                    cpfInput.classList.remove("is-valid");
+                    return;
+                }
+
+                if (!calculoCPF(cpf)) {
+                    errorMessage.textContent = "CPF inválido.";
+                    cpfInput.classList.add("is-invalid");
+                    cpfInput.classList.remove("is-valid");
+                } else {
+                    errorMessage.textContent = "";
+                    cpfInput.classList.remove("is-invalid");
+                    cpfInput.classList.add("is-valid");
+                }
+            }
+
+            function calculoCPF(cpf) {
+                if (/^(\d)\1{10}$/.test(cpf)) return false; // Bloqueia CPFs com números repetidos (111.111.111-11)
+
+                let soma = 0;
+                let resto;
+
+                for (let i = 1; i <= 9; i++) {
+                    soma += parseInt(cpf[i - 1]) * (11 - i);
+                }
+
+                resto = (soma * 10) % 11;
+                if (resto === 10 || resto === 11) resto = 0;
+                if (resto !== parseInt(cpf[9])) return false;
+
+                soma = 0;
+                for (let i = 1; i <= 10; i++) {
+                    soma += parseInt(cpf[i - 1]) * (12 - i);
+                }
+
+                resto = (soma * 10) % 11;
+                if (resto === 10 || resto === 11) resto = 0;
+                return resto === parseInt(cpf[10]);
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const senhaInput = document.getElementById("senha-user");
+            const repetirSenhaInput = document.getElementById("repetir-senha-user");
+
+            function validarSenhas() {
+                let senha = senhaInput.value;
+                let repetirSenha = repetirSenhaInput.value;
+                let errorMessage = document.getElementById("senha-error");
+
+                if (!errorMessage) {
+                    errorMessage = document.createElement("div");
+                    errorMessage.id = "senha-error";
+                    errorMessage.classList.add("invalid-feedback");
+                    repetirSenhaInput.parentNode.appendChild(errorMessage);
+                }
+
+                if (senha === "" || repetirSenha === "") {
+                    repetirSenhaInput.classList.remove("is-valid", "is-invalid");
+                    errorMessage.textContent = "";
+                    return;
+                }
+
+                if (senha !== repetirSenha) {
+                    errorMessage.textContent = "As senhas não coincidem.";
+                    repetirSenhaInput.classList.add("is-invalid");
+                    repetirSenhaInput.classList.remove("is-valid");
+                } else {
+                    errorMessage.textContent = "";
+                    repetirSenhaInput.classList.remove("is-invalid");
+                    repetirSenhaInput.classList.add("is-valid");
+                }
+            }
+
+            senhaInput.addEventListener("input", validarSenhas);
+            repetirSenhaInput.addEventListener("input", validarSenhas);
+        });
+    </script>
+
+</body>
+
+</html>
