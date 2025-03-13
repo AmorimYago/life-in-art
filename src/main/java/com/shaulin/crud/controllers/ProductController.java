@@ -66,6 +66,7 @@ public class ProductController {
         product.setDescription(description);
         product.setPrice(price);
         product.setStockQuantity(stockQuantity);
+        product.setStatus(true);
 
         for (MultipartFile file : images) {
             ProductImage productImage = new ProductImage();
@@ -123,4 +124,27 @@ public class ProductController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    // Altera o status do produto (habilitado/desabilitado)
+    @PutMapping("/{id}/toggle-status")
+    public ResponseEntity<String> toggleProductStatus(@PathVariable Integer id) {
+        Optional<Product> existingProduct = repository.findById(id);
+
+        if (existingProduct.isPresent()) {
+            Product product = existingProduct.get();
+
+            // Se status for null, define um valor padrão (true)
+            if (product.getStatus() == null) {
+                product.setStatus(true);
+            } else {
+                product.setStatus(!product.getStatus()); // Alterna entre true e false
+            }
+
+            repository.save(product);
+            return ResponseEntity.ok("Status atualizado para: " + product.getStatus());
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado");
+    }
+
 }

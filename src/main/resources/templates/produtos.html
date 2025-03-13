@@ -115,10 +115,7 @@
                                     <td th:text="${product.name}">Nome</td>
                                     <td th:text="${product.stockQuantity}">Qtd</td>
                                     <td th:text="${product.price}">Valor</td>
-                                    <td>
-
-                                        <!-- <span th:text="${product.status}">Status</span> -->
-                                    </td>
+                                    <td class="status-cell" th:text="${product.status} ? 'Habilitado' : 'Desabilitado'">Status</td>
                                     <td style="padding-bottom: 0px;padding-top: 0px">
                                         <div class="dropdown" style="padding: 8px">
                                             <button class="btn btn-primary dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button" style="overflow: visible">
@@ -127,7 +124,7 @@
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item visualizar-produto" href="#">Visualizar</a>
                                                 <a class="dropdown-item alterar-produto" href="#">Alterar</a>
-                                                <a class="dropdown-item" href="#">Hab/des</a>
+                                                <a class="dropdown-item toggle-status" href="#" th:attr="data-id=${product.id}">Hab/des</a>
                                             </div>
                                         </div>
                                     </td>
@@ -680,6 +677,41 @@
         }
     });
 </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".toggle-status").forEach(button => {
+            button.addEventListener("click", function (event) {
+                event.preventDefault();
+                let productId = this.getAttribute("data-id");
+
+                let confirmModal = new bootstrap.Modal(document.getElementById('modal-confirma'));
+                let confirmButton = document.querySelector("#modal-confirma .btn-primary");
+
+                confirmButton.onclick = function () {
+                    fetch(`/products/${productId}/toggle-status`, {
+                        method: "PUT"
+                    })
+                        .then(response => response.text())
+                        .then(() => {
+                            // Atualiza o status na interface sem recarregar
+                            let statusCell = document.querySelector(`tr[data-id="${productId}"] .status-cell`);
+                            if (statusCell) {
+                                statusCell.textContent = (statusCell.textContent.trim() === "Habilitado") ? "Desabilitado" : "Habilitado";
+                            }
+                        })
+                        .catch(error => console.error("Erro:", error));
+
+                    confirmModal.hide();
+                };
+
+                confirmModal.show();
+            });
+        });
+    });
+</script>
+
+
 
 
 

@@ -23,6 +23,7 @@ public class Product {
     private String description;
     private BigDecimal price;
     private Integer stockQuantity;
+    private Boolean status;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonManagedReference
