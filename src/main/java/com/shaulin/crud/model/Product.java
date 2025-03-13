@@ -1,25 +1,32 @@
 package com.shaulin.crud.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
-
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
-@AllArgsConstructor
+@Entity
+@Data
 @NoArgsConstructor
-@ToString
-@Entity(name = "product")
-@Table(name = "product")
+@AllArgsConstructor
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private @Getter @Setter Integer id;
-    private @Getter @Setter String name;
-    private @Getter @Setter BigDecimal rating;
-    private @Getter @Setter String description;
-    private @Getter @Setter BigDecimal price;
-    private @Getter @Setter Integer stockQuantity;
+    private Integer id;
 
+    private String name;
+    private BigDecimal rating;
+    private String description;
+    private BigDecimal price;
+    private Integer stockQuantity;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<ProductImage> images = new ArrayList<>();
 }
+
+

@@ -21,16 +21,6 @@ public class UserController {
     @Autowired
     private UserRepository repository;
 
-   /* @GetMapping
-    public ResponseEntity getAll() {
-        List<User> ListUsers = repository.findAll();
-        /* A linha abaixo usa o ResponseEntity para fazer com que ele retorne uma retorne uma resposta do tipo OK (Código 200)
-        Além disso o o corpo dessa reposta será a lista de usuarios cadastrados na base
-         */
-       // return ResponseEntity.status(HttpStatus.OK).body(ListUsers);
-  //  }
-
-
     @GetMapping
     public String listUsers(Model model) {
         List<User> users = repository.findAll();

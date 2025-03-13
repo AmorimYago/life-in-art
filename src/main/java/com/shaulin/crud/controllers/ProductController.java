@@ -1,78 +1,126 @@
 package com.shaulin.crud.controllers;
 
-import com.shaulin.crud.dtos.ProductDto;
 import com.shaulin.crud.model.Product;
+import com.shaulin.crud.model.ProductImage;
 import com.shaulin.crud.repositories.ProductRepository;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
+@Controller
 @RequestMapping("/products")
 public class ProductController {
 
-    @Autowired  // Isso significa obter o bean chamado productRepository
-    // Que é gerado automaticamente pelo Spring, nós o usaremos para realizar operações no banco de dados.
-    ProductRepository repository;
+    @Autowired
+    private ProductRepository repository;
 
+    // Lista todos os produtos
     @GetMapping
-    public ResponseEntity getAll() {
-        List<Product> ListProducts = repository.findAll();
-        /* A linha abaixo usa o ResponseEntity para fazer com que ele retorne uma retorne uma resposta do tipo OK (Código 200)
-        Além disso o o corpo dessa reposta será a lista de produtos cadastrados na base
-         */
-        return ResponseEntity.status(HttpStatus.OK).body(ListProducts);
+    public String listProducts(Model model) {
+        List<Product> products = repository.findAll();
+        products.forEach(product -> product.getImages().forEach(img ->
+                img.setBase64Image(Base64.getEncoder().encodeToString(img.getImage()))
+        ));
+        model.addAttribute("products", products);
+        return "produtos";
     }
 
-    /*
-    O metodo abaixo será do tipo GET, porém ele vai passar um atributo do tipo id, então na URL da requisição da API
-    A URL vai ficar por exemplo assim: localhost:8080/products/{id}
-    Dessa forma estamos especificando qual é o registro especifico lá da base que queremos trazer na resposta
-    */
-    @GetMapping("/{id}") // Adicionando um novo parâmetro no metodo para receber o ID do produto
-    public ResponseEntity getById(@PathVariable(value = "id") Integer id) {
-        // Resumidamente esse PathVariable serve para informar que o id é o mesmo do parametro
-        Optional product = repository.findById(id);
-        // Retorna uma resposta com o produto encontrado (Código 200) ou um erro (Código 404) caso não seja encontrado
-        if (product.isEmpty()) { // Verifica se não encontrou nada com o id
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
+    // Obtém um produto por ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Product> getProductById(@PathVariable Integer id) {
+        Optional<Product> productOpt = repository.findById(id);
+
+        if (productOpt.isPresent()) {
+            Product product = productOpt.get();
+
+            product.getImages().forEach(img ->
+                    img.setBase64Image(Base64.getEncoder().encodeToString(img.getImage())));
+
+            return ResponseEntity.ok(product);
         }
-        return ResponseEntity.status(HttpStatus.FOUND).body(product.get());
+        return ResponseEntity.notFound().build();
     }
 
+    // Adiciona um novo produto com várias imagens
     @PostMapping
-    public ResponseEntity save(@RequestBody ProductDto dto) {
-        // Implementar a lógica para salvar um novo produto na base de dados
-        // E retornar uma resposta de sucesso (Código 201)
-        var product = new Product();
-        BeanUtils.copyProperties(dto, product);
-        return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(product));
+    public String createProduct(@RequestParam("name") String name,
+                                @RequestParam("rating") BigDecimal rating,
+                                @RequestParam("description") String description,
+                                @RequestParam("price") BigDecimal price,
+                                @RequestParam("stockQuantity") Integer stockQuantity,
+                                @RequestParam("image") MultipartFile[] images) throws IOException {
+
+        Product product = new Product();
+        product.setName(name);
+        product.setRating(rating);
+        product.setDescription(description);
+        product.setPrice(price);
+        product.setStockQuantity(stockQuantity);
+
+        for (MultipartFile file : images) {
+            ProductImage productImage = new ProductImage();
+            productImage.setImage(file.getBytes());
+            productImage.setProduct(product);
+            product.getImages().add(productImage);
+        }
+
+        repository.save(product);
+        return "redirect:/products";
     }
 
+    // Atualiza um produto existente
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = {"multipart/form-data"})
+    public ResponseEntity<String> updateProduct(@PathVariable Integer id,
+                                                @RequestParam("name") String name,
+                                                @RequestParam("rating") BigDecimal rating,
+                                                @RequestParam("description") String description,
+                                                @RequestParam("price") BigDecimal price,
+                                                @RequestParam("stockQuantity") Integer stockQuantity,
+                                                @RequestParam(value = "image", required = false) MultipartFile[] images) throws IOException {
+        Optional<Product> existingProduct = repository.findById(id);
+        if (existingProduct.isPresent()) {
+            Product product = existingProduct.get();
+            product.setName(name);
+            product.setRating(rating);
+            product.setDescription(description);
+            product.setPrice(price);
+            product.setStockQuantity(stockQuantity);
+
+            if (images != null && images.length > 0 && !images[0].isEmpty()) {
+                product.getImages().clear();
+                for (MultipartFile file : images) {
+                    ProductImage productImage = new ProductImage();
+                    productImage.setImage(file.getBytes());
+                    productImage.setProduct(product);
+                    product.getImages().add(productImage);
+                }
+            }
+
+            repository.save(product);
+            return ResponseEntity.ok("Produto atualizado com sucesso!");
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado");
+    }
+
+
+    // Exclui um produto
     @DeleteMapping("/{id}")
-    public ResponseEntity delete (@PathVariable(value = "id") Integer id) {
-        Optional<Product> product = repository.findById(id);
-        if (product.isEmpty()) { // Verifica se o Id existe
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
+    public ResponseEntity<Void> deleteProduct(@PathVariable Integer id) {
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+            return ResponseEntity.noContent().build();
         }
-        repository.delete(product.get());
-        return ResponseEntity.status(HttpStatus.OK).body("Product deleted");
+        return ResponseEntity.notFound().build();
     }
-
-    @PutMapping("/{id}")
-    public ResponseEntity update (@PathVariable(value = "id") Integer id, @RequestBody ProductDto dto) {
-        Optional<Product> product = repository.findById(id);
-        if (product.isEmpty()) { // Verifica se o Id existe
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
-        }
-        var productModel = product.get();
-        BeanUtils.copyProperties(dto, productModel);
-        return ResponseEntity.status(HttpStatus.OK).body(repository.save(productModel));
-    }
-
 }
