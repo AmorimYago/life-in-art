@@ -12,11 +12,13 @@
           <entry name="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/unknown/spring-boot-configuration-processor-unknown.jar" />
         </processorPath>
         <module name="crud" />
+        <module name="auto-atendimento-biblioteca" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="auto-atendimento-biblioteca" options="-parameters" />
       <module name="crud" options="-parameters" />
     </option>
   </component>

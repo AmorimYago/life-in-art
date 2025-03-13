@@ -7,25 +7,36 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-@RestController
+@Controller
 @RequestMapping("/users")
 public class UserController {
 
     @Autowired
-    UserRepository repository;
+    private UserRepository repository;
 
-    @GetMapping
+   /* @GetMapping
     public ResponseEntity getAll() {
         List<User> ListUsers = repository.findAll();
         /* A linha abaixo usa o ResponseEntity para fazer com que ele retorne uma retorne uma resposta do tipo OK (Código 200)
         Além disso o o corpo dessa reposta será a lista de usuarios cadastrados na base
          */
-        return ResponseEntity.status(HttpStatus.OK).body(ListUsers);
+       // return ResponseEntity.status(HttpStatus.OK).body(ListUsers);
+  //  }
+
+
+    @GetMapping
+    public String listUsers(Model model) {
+        List<User> users = repository.findAll();
+        System.out.println(users);
+        model.addAttribute("users", users);  // Passa a lista para a página
+        return "usuarios"; // Nome do arquivo HTML (usuarios.html)
     }
 
     /*
