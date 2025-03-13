@@ -600,6 +600,89 @@
     });
 </script>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let table = document.querySelector("#dataTable tbody");
+        let rows = table.querySelectorAll("tr");
+        let rowsPerPage = 10;
+        let currentPage = 1;
+        let totalPages = Math.ceil(rows.length / rowsPerPage);
+
+        function showPage(page) {
+            let start = (page - 1) * rowsPerPage;
+            let end = start + rowsPerPage;
+
+            rows.forEach((row, index) => {
+                row.style.display = (index >= start && index < end) ? "" : "none";
+            });
+
+            document.querySelectorAll(".pagination .page-item").forEach(item => {
+                item.classList.remove("active");
+                let link = item.querySelector(".page-link");
+                if (link) {
+                    link.classList.remove("bg-primary", "text-white"); // Remove a cor dos outros
+                }
+            });
+
+            let activePage = document.querySelector(`.pagination .page-item[data-page="${page}"]`);
+            if (activePage) {
+                activePage.classList.add("active");
+                let activeLink = activePage.querySelector(".page-link");
+                if (activeLink) {
+                    activeLink.classList.add("bg-primary", "text-white"); // Aplica a cor primária apenas no ativo
+                }
+            }
+        }
+
+        function createPagination() {
+            let pagination = document.querySelector(".pagination");
+            pagination.innerHTML = '';
+
+            let prev = document.createElement("li");
+            prev.className = "page-item";
+            prev.innerHTML = `<a class="page-link" href="#">«</a>`;
+            prev.addEventListener("click", () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    showPage(currentPage);
+                }
+            });
+            pagination.appendChild(prev);
+
+            for (let i = 1; i <= totalPages; i++) {
+                let li = document.createElement("li");
+                li.className = "page-item";
+                li.setAttribute("data-page", i);
+                li.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+                li.addEventListener("click", () => {
+                    currentPage = i;
+                    showPage(currentPage);
+                });
+                pagination.appendChild(li);
+            }
+
+            let next = document.createElement("li");
+            next.className = "page-item";
+            next.innerHTML = `<a class="page-link" href="#">»</a>`;
+            next.addEventListener("click", () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    showPage(currentPage);
+                }
+            });
+            pagination.appendChild(next);
+
+            showPage(1);
+        }
+
+        if (rows.length > 0) {
+            createPagination();
+        }
+    });
+</script>
+
+
+
 
 </body>
 </html>
