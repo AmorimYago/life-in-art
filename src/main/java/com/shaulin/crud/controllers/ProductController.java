@@ -32,7 +32,7 @@ public class ProductController {
                 img.setBase64Image(Base64.getEncoder().encodeToString(img.getImage()))
         ));
         model.addAttribute("products", products);
-        return "produtos";
+        return "loja";
     }
 
     // Obtém um produto por ID
